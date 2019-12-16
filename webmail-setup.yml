@@ -1,0 +1,7 @@
+---
+- name: RAINLOOP WEBMAIL SETUP
+  hosts: localhost
+  connection: local
+  roles:
+    - setup-local-registry
+    - setup-rainloop
