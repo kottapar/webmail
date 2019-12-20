@@ -5,3 +5,22 @@
     url: "http://download.docker.com/linux/ubuntu/gpg"
     state: present
     validate_certs: no
+ 
+- name: Add Docker repo
+  apt_repository:
+    repo: deb https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
+    state: present
+
+- name: Install Docker-ce package
+  apt:
+    name: docker-ce
+    update_cache: yes
+ 
+- name: Create private registry dir
+  file:
+    path: ~/docker/registry
+    state: directory
+
+- name: Start the private registry
+  command: "docker run -d -p 5000:5000 --name private-registry --restart=always -v ~/docker/registry:/var/lib/registry registry:2"
+  register: start_reg
