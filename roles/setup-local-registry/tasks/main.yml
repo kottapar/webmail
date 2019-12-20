@@ -1,2 +1,7 @@
 ---
-# tasks file for setup-local-registry
+
+- name: Add Docker's GPG key
+  apt_key:
+    url: "http://download.docker.com/linux/ubuntu/gpg"
+    state: present
+    validate_certs: no

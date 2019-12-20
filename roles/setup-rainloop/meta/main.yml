@@ -1,6 +1,6 @@
 galaxy_info:
-  author: Ravi
-  description: role to setup local docker private registry
+  author: your name
+  description: your description
   company: your company (optional)
 
   # If the issue tracker for your role is not on github, uncomment the
