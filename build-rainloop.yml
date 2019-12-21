@@ -1,0 +1,9 @@
+---
+- name: Build Rainloop image using Ansible-bender
+  hosts: all
+  connection: podman
+
+  tasks:
+    apt:
+      name: nginx
+      state: present

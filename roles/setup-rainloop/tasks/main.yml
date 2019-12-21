@@ -1,2 +1,22 @@
 ---
-# tasks file for setup-rainloop
+
+- name: Install dependencies
+  apt: 
+    pkg: ['software-properties-common', 'uidmap']
+
+- name: Add Podman repo
+  apt_repository:
+    repo: 'ppa:projectatomic/ppa'
+    state: present
+    validate_certs: no
+    update_cache: yes
+
+- name: Install Podman
+  apt:
+    name: podman
+    state: present
+
+- name: Pull Ubuntu image
+  podman_image:
+    name: ubuntu
+    tag: 19.10
