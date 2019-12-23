@@ -5,5 +5,24 @@
     name: podman
     state: present
 
+- name: Remove rainloop image
+  podman_image:
+    name: rainloop
+    state: absent
+
+- name: stop rainloop container
+  command: podman container stop rainloop 
+  ignore_errors: true
+
+- name: remove rainloop container
+  command: podman rm rainloop -f
+  ignore_errors: true
+
 - name: Run the Ubuntu image and install Python3
-  command: podman run -d --name rainloop ubuntu:19.10 bash -c "apt-get -qq update -y && apt-get -qq install python3 -y && sleep infinity"
+  command: 
+    podman run -d --name rainloop ubuntu:19.10 bash -c 
+    "apt-get -qq update -y && apt-get -qq install python3 -y && sleep infinity"
+
+- name: wait for the package installation to complete
+  pause:
+    minutes: 1

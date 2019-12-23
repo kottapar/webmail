@@ -1,19 +1,18 @@
 ---
-- name: RAINLOOP WEBMAIL SETUP
-  hosts: localhost
+- hosts: localhost
   connection: local
   roles:
     - setup-local-registry
     - setup-rainloop
 
-- name: Configure the Podman container
-  hosts: rainloop
+- hosts: rainloop
   connection: podman
   roles:
     - build-rainloop
 
-- name: Commit the Rainloop image
-  hosts: localhost
+- hosts: localhost
+  name: commit image 
   connection: local
-  command: podman commit rainloop rainloop-image
+  tasks:
+    - command: podman commit rainloop rainloop-image
 
