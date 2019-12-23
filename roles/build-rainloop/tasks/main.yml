@@ -1,0 +1,47 @@
+---
+- name: Install the packages
+  apt:
+    name: "{{ install_pkgs }}"
+    state: present
+
+- name: Install unzip
+  apt:
+    name: unzip
+    state: present
+
+- name: create Rainloop dir
+  file:
+    path: "{{ rainloop_dir }}"
+    state: directory
+
+- name: create Rainloop logs dir
+  file:
+    path: "{{ rainloop_logs_dir }}"
+    state: directory
+
+- name: Download and unzip Rainloop
+  unarchive:
+    src: "{{ rainloop_pkg }}"
+    dest: "{{ rainloop_dir }}"
+    remote_src: yes
+
+- name: Change permissions
+  file:
+    path: "{{ rainloop_dir }}"
+    owner: www-data
+    group: www-data
+    state: directory
+    recurse: yes
+
+- name: copy the Rainloop nginx conf
+  copy:
+    src: rainloop.conf
+    dest: /etc/nginx/sites-available/rainloop.conf
+  notify: restart nginx
+
+- name: Activate Rainloop config
+  file:
+    src: /etc/nginx/sites-available/rainloop.conf
+    path: /etc/nginx/sites-enabled/rainloop
+    state: link
+  notify: restart nginx

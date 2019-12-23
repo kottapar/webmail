@@ -1,0 +1,20 @@
+---
+# defaults file for build-rainloop
+
+install_pkgs:
+- gnupg
+- openssl
+- wget
+- ca-certificates
+- nginx
+- php
+- php-fpm
+- php-mysql
+- php-curl
+- php-xml
+
+rainloop_pkg: https://www.rainloop.net/repository/webmail/rainloop-community-latest.zip
+
+rainloop_dir: /var/www/html/rainloop
+
+rainloop_logs_dir: /var/log/rainloop

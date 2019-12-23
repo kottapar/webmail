@@ -5,7 +5,5 @@
     name: podman
     state: present
 
-- name: Pull Ubuntu image
-  podman_image:
-    name: ubuntu
-    tag: "19.10"
+- name: Run the Ubuntu image and install Python3
+  command: podman run -d --name rainloop ubuntu:19.10 bash -c "apt-get -qq update -y && apt-get -qq install python3 -y && sleep infinity"
