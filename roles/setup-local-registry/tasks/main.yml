@@ -2,25 +2,34 @@
 
 - name: Add Docker's GPG key
   rpm_key:
-    url: "http://download.docker.com/linux/centos/gpg"
+    key: "http://download.docker.com/linux/centos/gpg"
     state: present
-    validate_certs: no
  
-- name: Add Docker repo
+- name: Add EPEL repository
   yum_repository:
-    name: docker
-    repo: https://download.docker.com/linux/centos/docker-ce.repo
-    state: present
+    name: epel
+    description: EPEL YUM repo
+    baseurl: https://download.fedoraproject.org/pub/epel/$releasever/$basearch/
 
-- name: Install Docker-ce package
+- name: Install Docker and docker-distribution packages
   yum:
-    name: docker-ce
- 
-- name: Create private registry dir
-  file:
-    path: ~/docker/registry
-    state: directory
+    name: [ 'docker', 'docker-distribution' ]
 
-- name: Start the private registry
-  command: "docker run -d -p 5000:5000 --name private-registry --restart=always -v ~/docker/registry:/var/lib/registry registry:2"
-  register: start_reg
+- name: Copy the daemon.json to allow insecure registry
+  copy:
+    src: daemon.json
+    dest: /etc/docker/daemon.json
+
+- name: start and enable docker
+  service:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: start and enable docker-distribution
+  service:
+    name: docker-distribution
+    state: started
+    enabled: yes
+
+ 

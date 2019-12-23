@@ -1,9 +1,9 @@
----
-- name: Build Rainloop image using Ansible-bender
+- name: Build Rainloop image
   hosts: all
   connection: podman
 
   tasks:
+  - name: Install Nginx
     apt:
       name: nginx
       state: present
