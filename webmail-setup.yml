@@ -3,11 +3,17 @@
   hosts: localhost
   connection: local
   roles:
-#    - setup-local-registry
-#    - setup-rainloop
+    - setup-local-registry
+    - setup-rainloop
 
 - name: Configure the Podman container
   hosts: rainloop
   connection: podman
   roles:
     - build-rainloop
+
+- name: Commit the Rainloop image
+  hosts: localhost
+  connection: local
+  command: podman commit rainloop rainloop-image
+
