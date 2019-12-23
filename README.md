@@ -19,12 +19,10 @@ podman version 1.4.4
 Clone the repo and run `ansible-playbook webmail-setup.yml`
 
 The playbook consists of three roles:
-  setup-local-registry
-    Sets up a local Docker registry using the docker-distribution package
 
-  setup-rainloop
-    Installs Podman, pulls a Ubuntu 19.10 image and installs Python3 in it. The container is named rainloop
+setup-local-registry : Sets up a local Docker registry using the docker-distribution package
 
-  build-rainloop
-    Configures the `rainloop` container with Rainloop and Nginx. 
+setup-rainloop : Installs Podman, pulls a Ubuntu 19.10 image and installs Python3 in it. The container is named rainloop
+
+build-rainloop : Configures the `rainloop` container with Rainloop and Nginx. 
 
