@@ -45,3 +45,7 @@
     path: /etc/nginx/sites-enabled/rainloop
     state: link
   notify: restart nginx
+
+- name: Commit the Rainloop image
+  command: podman commit rainloop rainloop-image
+
